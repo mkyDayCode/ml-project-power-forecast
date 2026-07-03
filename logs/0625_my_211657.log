@@ -1,0 +1,101 @@
+=== 启动时间: Thu Jun 25 21:08:05 CST 2026 ===
+CUDA 可用，GPU 数量：1
+  GPU 0: NVIDIA A100-PCIE-40GB
+    显存：42.30 GB
+    计算能力：(8, 0)
+================================
+=== 环境信息 ===
+Python路径: /public/home/yangzhe/miniconda3/envs/llm2rec/bin/python3
+Python版本: Python 3.10.18
+Conda环境: llm2rec               *  /public/home/yangzhe/miniconda3/envs/llm2rec
+
+running at Thu Jun 25 21:08:19 CST 2026
+test my model
+Using device: cuda
+Loaded train.csv: 987 rows, 2006-12-16 -> 2009-08-28
+Loaded test.csv: 455 rows, 2009-08-29 -> 2010-11-26
+Features: ['Global_active_power', 'Global_reactive_power', 'Sub_metering_1', 'Sub_metering_2', 'Sub_metering_3', 'sub_metering_remainder', 'Voltage', 'Global_intensity', 'RR', 'NBJRR1', 'NBJRR5', 'NBJRR10']
+Dropped constant/weather column from features: ['NBJBROU']
+
+======================================================================
+Embedding Transformer direct multi-step forecasting: output_len=90
+======================================================================
+Metric protocol: compute MSE/MAE for each test window first, then average across windows.
+
+  Run 1/5 | seed=42
+    Fold 1: train_days=450, val_days=179, best_epoch=12, val_loss=0.01363
+    Fold 2: train_days=629, val_days=179, best_epoch=16, val_loss=0.01957
+    Fold 3: train_days=808, val_days=179, best_epoch=42, val_loss=0.00652
+    selected_epoch=16, rolling_folds=3, cv_loss=0.01324, test_samples=366
+    Test MSE=258219.5469, Test MAE=400.6422
+
+  Run 2/5 | seed=123
+    Fold 1: train_days=450, val_days=179, best_epoch=31, val_loss=0.01210
+    Fold 2: train_days=629, val_days=179, best_epoch=21, val_loss=0.01915
+    Fold 3: train_days=808, val_days=179, best_epoch=25, val_loss=0.00617
+    selected_epoch=25, rolling_folds=3, cv_loss=0.01247, test_samples=366
+    Test MSE=182360.5312, Test MAE=331.3473
+
+  Run 3/5 | seed=2024
+    Fold 1: train_days=450, val_days=179, best_epoch=97, val_loss=0.01106
+    Fold 2: train_days=629, val_days=179, best_epoch=19, val_loss=0.01952
+    Fold 3: train_days=808, val_days=179, best_epoch=50, val_loss=0.00620
+    selected_epoch=50, rolling_folds=3, cv_loss=0.01226, test_samples=366
+    Test MSE=189928.2656, Test MAE=335.9569
+
+  Run 4/5 | seed=7
+    Fold 1: train_days=450, val_days=179, best_epoch=26, val_loss=0.01349
+    Fold 2: train_days=629, val_days=179, best_epoch=13, val_loss=0.02000
+    Fold 3: train_days=808, val_days=179, best_epoch=13, val_loss=0.00937
+    selected_epoch=13, rolling_folds=3, cv_loss=0.01428, test_samples=366
+    Test MSE=257822.3438, Test MAE=398.8078
+
+  Run 5/5 | seed=99
+    Fold 1: train_days=450, val_days=179, best_epoch=17, val_loss=0.01377
+    Fold 2: train_days=629, val_days=179, best_epoch=31, val_loss=0.01925
+    Fold 3: train_days=808, val_days=179, best_epoch=36, val_loss=0.00526
+    selected_epoch=31, rolling_folds=3, cv_loss=0.01276, test_samples=366
+    Test MSE=176507.0312, Test MAE=319.3399
+
+  Summary (90d): MSE=212967.5438 +- 37031.5093, MAE=357.2188 +- 35.1325
+
+======================================================================
+Embedding Transformer direct multi-step forecasting: output_len=365
+======================================================================
+Metric protocol: compute MSE/MAE for each test window first, then average across windows.
+
+  Run 1/5 | seed=42
+    Fold 1: train_days=533, val_days=454, best_epoch=40, val_loss=0.02145
+    selected_epoch=40, rolling_folds=1, cv_loss=0.02145, test_samples=91
+    Test MSE=202222.8750, Test MAE=347.3082
+
+  Run 2/5 | seed=123
+    Fold 1: train_days=533, val_days=454, best_epoch=30, val_loss=0.02178
+    selected_epoch=30, rolling_folds=1, cv_loss=0.02178, test_samples=91
+    Test MSE=230637.9375, Test MAE=375.0799
+
+  Run 3/5 | seed=2024
+    Fold 1: train_days=533, val_days=454, best_epoch=36, val_loss=0.02135
+    selected_epoch=36, rolling_folds=1, cv_loss=0.02135, test_samples=91
+    Test MSE=238525.2344, Test MAE=384.4064
+
+  Run 4/5 | seed=7
+    Fold 1: train_days=533, val_days=454, best_epoch=35, val_loss=0.02147
+    selected_epoch=35, rolling_folds=1, cv_loss=0.02147, test_samples=91
+    Test MSE=287284.2500, Test MAE=425.3633
+
+  Run 5/5 | seed=99
+    Fold 1: train_days=533, val_days=454, best_epoch=29, val_loss=0.02138
+    selected_epoch=29, rolling_folds=1, cv_loss=0.02138, test_samples=91
+    Test MSE=250439.2344, Test MAE=394.2243
+
+  Summary (365d): MSE=241821.9062 +- 27731.2658, MAE=385.2764 +- 25.4296
+
+======================================================================
+Final summary
+======================================================================
+                Model             Task     MSE mean      MSE std   MAE mean   MAE std
+Embedding-Transformer  90-day forecast 212967.54375 37031.509265 357.218823 35.132480
+Embedding-Transformer 365-day forecast 241821.90625 27731.265826 385.276410 25.429648
+
+Saved prediction plot to: /public/home/yangzhe/mky/ML/embed_transformer_prediction.png

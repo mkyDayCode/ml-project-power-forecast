@@ -1,0 +1,87 @@
+Using device: cuda
+Loaded train.csv: 987 rows, 2006-12-16 -> 2009-08-28
+Loaded test.csv: 455 rows, 2009-08-29 -> 2010-11-26
+Features: ['Global_active_power', 'Global_reactive_power', 'Sub_metering_1', 'Sub_metering_2', 'Sub_metering_3', 'sub_metering_remainder', 'Voltage', 'Global_intensity', 'RR', 'NBJRR1', 'NBJRR5', 'NBJRR10']
+Dropped constant/weather column from features: ['NBJBROU']
+Using Attention CNN + Periodic Embedding
+
+======================================================================
+AttnCNN-Periodic-Transformer direct multi-step forecasting: output_len=90
+======================================================================
+
+  Run 1/5 | seed=42
+    Fold 1: train_days=450, val_days=179, best_epoch=60, val_loss=0.00931
+    Fold 2: train_days=629, val_days=179, best_epoch=35, val_loss=0.01521
+    Fold 3: train_days=808, val_days=179, best_epoch=35, val_loss=0.00420
+    selected_epoch=35, rolling_folds=3, cv_loss=0.00957, test_samples=366
+    Test MSE=155480.6406, Test MAE=302.7918
+
+  Run 2/5 | seed=123
+    Fold 1: train_days=450, val_days=179, best_epoch=64, val_loss=0.00856
+    Fold 2: train_days=629, val_days=179, best_epoch=23, val_loss=0.01526
+    Fold 3: train_days=808, val_days=179, best_epoch=42, val_loss=0.00395
+    selected_epoch=42, rolling_folds=3, cv_loss=0.00926, test_samples=366
+    Test MSE=151265.1875, Test MAE=296.6623
+
+  Run 3/5 | seed=2024
+    Fold 1: train_days=450, val_days=179, best_epoch=66, val_loss=0.00896
+    Fold 2: train_days=629, val_days=179, best_epoch=25, val_loss=0.01473
+    Fold 3: train_days=808, val_days=179, best_epoch=26, val_loss=0.00422
+    selected_epoch=26, rolling_folds=3, cv_loss=0.00930, test_samples=366
+    Test MSE=142921.7500, Test MAE=287.9219
+
+  Run 4/5 | seed=7
+    Fold 1: train_days=450, val_days=179, best_epoch=47, val_loss=0.00834
+    Fold 2: train_days=629, val_days=179, best_epoch=29, val_loss=0.01502
+    Fold 3: train_days=808, val_days=179, best_epoch=32, val_loss=0.00420
+    selected_epoch=32, rolling_folds=3, cv_loss=0.00919, test_samples=366
+    Test MSE=144806.5625, Test MAE=290.1775
+
+  Run 5/5 | seed=99
+    Fold 1: train_days=450, val_days=179, best_epoch=59, val_loss=0.00897
+    Fold 2: train_days=629, val_days=179, best_epoch=17, val_loss=0.01499
+    Fold 3: train_days=808, val_days=179, best_epoch=21, val_loss=0.00429
+    selected_epoch=21, rolling_folds=3, cv_loss=0.00941, test_samples=366
+    Test MSE=147289.7031, Test MAE=293.8121
+
+  Summary (90d): MSE=148352.7687 +- 4527.4804, MAE=294.2731 +- 5.2077
+
+======================================================================
+AttnCNN-Periodic-Transformer direct multi-step forecasting: output_len=365
+======================================================================
+
+  Run 1/5 | seed=42
+    Fold 1: train_days=533, val_days=454, best_epoch=60, val_loss=0.02194
+    selected_epoch=60, rolling_folds=1, cv_loss=0.02194, test_samples=91
+    Test MSE=161531.9375, Test MAE=311.0744
+
+  Run 2/5 | seed=123
+    Fold 1: train_days=533, val_days=454, best_epoch=53, val_loss=0.02209
+    selected_epoch=53, rolling_folds=1, cv_loss=0.02209, test_samples=91
+    Test MSE=161648.3906, Test MAE=307.9144
+
+  Run 3/5 | seed=2024
+    Fold 1: train_days=533, val_days=454, best_epoch=33, val_loss=0.02227
+    selected_epoch=33, rolling_folds=1, cv_loss=0.02227, test_samples=91
+    Test MSE=156459.4062, Test MAE=302.9121
+
+  Run 4/5 | seed=7
+    Fold 1: train_days=533, val_days=454, best_epoch=45, val_loss=0.02202
+    selected_epoch=45, rolling_folds=1, cv_loss=0.02202, test_samples=91
+    Test MSE=158678.2812, Test MAE=303.0263
+
+  Run 5/5 | seed=99
+    Fold 1: train_days=533, val_days=454, best_epoch=50, val_loss=0.02162
+    selected_epoch=50, rolling_folds=1, cv_loss=0.02162, test_samples=91
+    Test MSE=156166.8594, Test MAE=304.2108
+
+  Summary (365d): MSE=158896.9750 +- 2364.5894, MAE=305.8276 +- 3.1889
+
+======================================================================
+Final summary
+======================================================================
+                       Model             Task     MSE mean     MSE std   MAE mean  MAE std
+AttnCNN-Periodic-Transformer  90-day forecast 148352.76875 4527.480368 294.273138 5.207711
+AttnCNN-Periodic-Transformer 365-day forecast 158896.97500 2364.589394 305.827600 3.188872
+
+Saved prediction plot to: /public/home/yangzhe/mky/ML/results/attn_cnn_periodic_transformer.png

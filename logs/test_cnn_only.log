@@ -1,0 +1,89 @@
+Using device: cuda
+Loaded train.csv: 987 rows, 2006-12-16 -> 2009-08-28
+Loaded test.csv: 455 rows, 2009-08-29 -> 2010-11-26
+Features: ['Global_active_power', 'Global_reactive_power', 'Sub_metering_1', 'Sub_metering_2', 'Sub_metering_3', 'sub_metering_remainder', 'Voltage', 'Global_intensity', 'RR', 'NBJRR1', 'NBJRR5', 'NBJRR10']
+Dropped constant/weather column from features: ['NBJBROU']
+Model: CNN + Transformer (no periodic features)
+
+======================================================================
+CNN + Transformer (no periodic) direct multi-step forecasting: output_len=90
+======================================================================
+Metric protocol: compute MSE/MAE for each test window first, then average across windows.
+
+  Run 1/5 | seed=42
+    Fold 1: train_days=450, val_days=179, best_epoch=81, val_loss=0.01241
+    Fold 2: train_days=629, val_days=179, best_epoch=14, val_loss=0.01847
+    Fold 3: train_days=808, val_days=179, best_epoch=16, val_loss=0.00926
+    selected_epoch=16, rolling_folds=3, cv_loss=0.01338, test_samples=366
+    Test MSE=274511.0625, Test MAE=417.1465
+
+  Run 2/5 | seed=123
+    Fold 1: train_days=450, val_days=179, best_epoch=15, val_loss=0.01311
+    Fold 2: train_days=629, val_days=179, best_epoch=10, val_loss=0.01982
+    Fold 3: train_days=808, val_days=179, best_epoch=19, val_loss=0.00940
+    selected_epoch=15, rolling_folds=3, cv_loss=0.01411, test_samples=366
+    Test MSE=260466.7344, Test MAE=402.0004
+
+  Run 3/5 | seed=2024
+    Fold 1: train_days=450, val_days=179, best_epoch=60, val_loss=0.00979
+    Fold 2: train_days=629, val_days=179, best_epoch=35, val_loss=0.01937
+    Fold 3: train_days=808, val_days=179, best_epoch=19, val_loss=0.00907
+    selected_epoch=35, rolling_folds=3, cv_loss=0.01274, test_samples=366
+    Test MSE=862196.4375, Test MAE=771.3641
+
+  Run 4/5 | seed=7
+    Fold 1: train_days=450, val_days=179, best_epoch=15, val_loss=0.01346
+    Fold 2: train_days=629, val_days=179, best_epoch=17, val_loss=0.01937
+    Fold 3: train_days=808, val_days=179, best_epoch=33, val_loss=0.00812
+    selected_epoch=17, rolling_folds=3, cv_loss=0.01365, test_samples=366
+    Test MSE=261340.4531, Test MAE=404.2019
+
+  Run 5/5 | seed=99
+    Fold 1: train_days=450, val_days=179, best_epoch=38, val_loss=0.00955
+    Fold 2: train_days=629, val_days=179, best_epoch=7, val_loss=0.02020
+    Fold 3: train_days=808, val_days=179, best_epoch=17, val_loss=0.00797
+    selected_epoch=17, rolling_folds=3, cv_loss=0.01257, test_samples=366
+    Test MSE=262468.5000, Test MAE=406.4971
+
+  Summary (90d): MSE=384196.6375 +- 239054.4727, MAE=480.2420 +- 145.6539
+
+======================================================================
+CNN + Transformer (no periodic) direct multi-step forecasting: output_len=365
+======================================================================
+Metric protocol: compute MSE/MAE for each test window first, then average across windows.
+
+  Run 1/5 | seed=42
+    Fold 1: train_days=533, val_days=454, best_epoch=36, val_loss=0.02128
+    selected_epoch=36, rolling_folds=1, cv_loss=0.02128, test_samples=91
+    Test MSE=350671.8438, Test MAE=479.8318
+
+  Run 2/5 | seed=123
+    Fold 1: train_days=533, val_days=454, best_epoch=37, val_loss=0.02134
+    selected_epoch=37, rolling_folds=1, cv_loss=0.02134, test_samples=91
+    Test MSE=316520.1562, Test MAE=455.5106
+
+  Run 3/5 | seed=2024
+    Fold 1: train_days=533, val_days=454, best_epoch=40, val_loss=0.02120
+    selected_epoch=40, rolling_folds=1, cv_loss=0.02120, test_samples=91
+    Test MSE=484856.5625, Test MAE=577.8890
+
+  Run 4/5 | seed=7
+    Fold 1: train_days=533, val_days=454, best_epoch=23, val_loss=0.02144
+    selected_epoch=23, rolling_folds=1, cv_loss=0.02144, test_samples=91
+    Test MSE=261064.2344, Test MAE=404.3707
+
+  Run 5/5 | seed=99
+    Fold 1: train_days=533, val_days=454, best_epoch=26, val_loss=0.02140
+    selected_epoch=26, rolling_folds=1, cv_loss=0.02140, test_samples=91
+    Test MSE=232235.4531, Test MAE=378.1945
+
+  Summary (365d): MSE=329069.6500 +- 88198.9852, MAE=459.1593 +- 69.4183
+
+======================================================================
+Final summary
+======================================================================
+Model             Task    MSE mean       MSE std   MAE mean    MAE std
+  CNN  90-day forecast 384196.6375 239054.472700 480.241998 145.653875
+  CNN 365-day forecast 329069.6500  88198.985157 459.159308  69.418313
+
+Saved prediction plot to: /public/home/yangzhe/mky/ML/results/cnn_only_prediction.png

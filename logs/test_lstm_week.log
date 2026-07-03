@@ -1,0 +1,89 @@
+Using device: cuda
+Loaded train.csv: 987 rows, 2006-12-16 -> 2009-08-28
+Loaded test.csv: 455 rows, 2009-08-29 -> 2010-11-26
+Features: ['Global_active_power', 'Global_reactive_power', 'Sub_metering_1', 'Sub_metering_2', 'Sub_metering_3', 'sub_metering_remainder', 'Voltage', 'Global_intensity', 'RR', 'NBJRR1', 'NBJRR5', 'NBJRR10', 'weekday', 'month', 'weekday', 'month']
+Dropped constant/weather column from features: ['NBJBROU']
+Added time features: ['weekday', 'month']
+
+======================================================================
+LSTM + Time Features direct multi-step forecasting: output_len=90
+======================================================================
+Metric protocol: compute MSE/MAE for each test window first, then average across windows.
+
+  Run 1/5 | seed=42
+    Fold 1: train_days=450, val_days=179, best_epoch=3, val_loss=0.01183
+    Fold 2: train_days=629, val_days=179, best_epoch=19, val_loss=0.01442
+    Fold 3: train_days=808, val_days=179, best_epoch=44, val_loss=0.00392
+    selected_epoch=19, rolling_folds=3, cv_loss=0.01006, test_samples=366
+    Test MSE=208282.5625, Test MAE=359.7054
+
+  Run 2/5 | seed=123
+    Fold 1: train_days=450, val_days=179, best_epoch=3, val_loss=0.01256
+    Fold 2: train_days=629, val_days=179, best_epoch=18, val_loss=0.01440
+    Fold 3: train_days=808, val_days=179, best_epoch=25, val_loss=0.00412
+    selected_epoch=18, rolling_folds=3, cv_loss=0.01036, test_samples=366
+    Test MSE=210141.5156, Test MAE=357.4049
+
+  Run 3/5 | seed=2024
+    Fold 1: train_days=450, val_days=179, best_epoch=3, val_loss=0.01264
+    Fold 2: train_days=629, val_days=179, best_epoch=42, val_loss=0.01426
+    Fold 3: train_days=808, val_days=179, best_epoch=48, val_loss=0.00404
+    selected_epoch=42, rolling_folds=3, cv_loss=0.01031, test_samples=366
+    Test MSE=292522.5938, Test MAE=394.4737
+
+  Run 4/5 | seed=7
+    Fold 1: train_days=450, val_days=179, best_epoch=3, val_loss=0.01167
+    Fold 2: train_days=629, val_days=179, best_epoch=25, val_loss=0.01430
+    Fold 3: train_days=808, val_days=179, best_epoch=41, val_loss=0.00429
+    selected_epoch=25, rolling_folds=3, cv_loss=0.01009, test_samples=366
+    Test MSE=181433.6875, Test MAE=335.6107
+
+  Run 5/5 | seed=99
+    Fold 1: train_days=450, val_days=179, best_epoch=3, val_loss=0.01233
+    Fold 2: train_days=629, val_days=179, best_epoch=30, val_loss=0.01416
+    Fold 3: train_days=808, val_days=179, best_epoch=45, val_loss=0.00503
+    selected_epoch=30, rolling_folds=3, cv_loss=0.01051, test_samples=366
+    Test MSE=235268.9844, Test MAE=374.2573
+
+  Summary (90d): MSE=225529.8687 +- 37580.8988, MAE=364.2904 +- 19.5004
+
+======================================================================
+LSTM + Time Features direct multi-step forecasting: output_len=365
+======================================================================
+Metric protocol: compute MSE/MAE for each test window first, then average across windows.
+
+  Run 1/5 | seed=42
+    Fold 1: train_days=533, val_days=454, best_epoch=9, val_loss=0.02093
+    selected_epoch=9, rolling_folds=1, cv_loss=0.02093, test_samples=91
+    Test MSE=227095.8906, Test MAE=372.5210
+
+  Run 2/5 | seed=123
+    Fold 1: train_days=533, val_days=454, best_epoch=19, val_loss=0.02123
+    selected_epoch=19, rolling_folds=1, cv_loss=0.02123, test_samples=91
+    Test MSE=156627.6406, Test MAE=303.5291
+
+  Run 3/5 | seed=2024
+    Fold 1: train_days=533, val_days=454, best_epoch=9, val_loss=0.02126
+    selected_epoch=9, rolling_folds=1, cv_loss=0.02126, test_samples=91
+    Test MSE=200553.1875, Test MAE=346.9786
+
+  Run 4/5 | seed=7
+    Fold 1: train_days=533, val_days=454, best_epoch=19, val_loss=0.02069
+    selected_epoch=19, rolling_folds=1, cv_loss=0.02069, test_samples=91
+    Test MSE=164547.6562, Test MAE=311.9520
+
+  Run 5/5 | seed=99
+    Fold 1: train_days=533, val_days=454, best_epoch=20, val_loss=0.02100
+    selected_epoch=20, rolling_folds=1, cv_loss=0.02100, test_samples=91
+    Test MSE=155120.7656, Test MAE=301.0195
+
+  Summary (365d): MSE=180789.0281 +- 28430.1320, MAE=327.2000 +- 28.0122
+
+======================================================================
+Final summary
+======================================================================
+        Model             Task      MSE mean      MSE std   MAE mean   MAE std
+LSTM+TimeFeat  90-day forecast 225529.868750 37580.898770 364.290387 19.500385
+LSTM+TimeFeat 365-day forecast 180789.028125 28430.131961 327.200043 28.012201
+
+Saved prediction plot to: /public/home/yangzhe/mky/ML/lstm_timefeat_prediction_add.png
